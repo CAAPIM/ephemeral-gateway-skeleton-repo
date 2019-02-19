@@ -1,6 +1,3 @@
-# ephemeral-gateway-skeleton-repo
-Use this repository to start creating your own CI/CD pipeline with gateway configuration.
-
 # About
 This is a skeleton repository that you can use as a starting point for your gateway projects.
 

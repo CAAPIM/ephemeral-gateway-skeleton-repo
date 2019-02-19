@@ -1,0 +1,57 @@
+/*
+ * Copyright (c) 2018 CA. All rights reserved.
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ */
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        mavenLocal()
+    }
+    dependencies {
+//        Use + for latest version. e.g. 0.6.+
+        classpath "com.ca.apim.gateway:gateway-developer-plugin:0.6.60"
+        classpath "com.ca.apim.gateway:gateway-export-plugin:0.6.60"
+    }
+}
+
+plugins {
+    id "com.bmuschko.docker-remote-api" version "4.0.4"
+}
+
+apply plugin: 'com.ca.apim.gateway.gateway-export-plugin'
+apply plugin: 'com.ca.apim.gateway.gateway-developer-plugin'
+
+group '<my.group.id>'
+version = '<version>'
+
+GatewayConnection {
+    url = 'https://<host.name>:8443/restman'
+    userName = 'admin'
+    userPass = 'password'
+}
+
+GatewayExportConfig {
+    folderPath = '/<project.folder>'
+}
+
+repositories {
+    jcenter()
+    mavenLocal()
+}
+
+wrapper {
+    gradleVersion = '4.10.2'
+}
+
+// Import task types
+import com.bmuschko.gradle.docker.tasks.image.*
+
+// Use task types
+task buildDockerImage(type: DockerBuildImage) {
+    inputDir = file('./')
+    tag = System.getProperty("imageName") + ":" + System.getProperty("imageTag")
+}

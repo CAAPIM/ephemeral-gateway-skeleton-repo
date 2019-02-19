@@ -1,0 +1,1 @@
+Put a valid gateway license file in this folder. The license file should be called `license.xml`. For information on getting a license see the [License Section from the Gateway Container readme](https://hub.docker.com/r/caapim/gateway/).
