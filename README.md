@@ -42,6 +42,34 @@ To stop the running Gateway Container, run the following command:
 
 `docker-compose  down`
 
+## Adding webhook
+You can add webhook in github repo under settings for jenkins job, so that jenkins job is ran each time there is commit in branch.
+`http://<jenkins-host>/github-webhook/`
+
+You can add project url in jenkins job, so that you can manually trigger job from jenkins directly.
+
+## Usage
+Modify below mentioned files for simple export from your existing gateway cluster:
+
+	i. build.gradle
+		a) my.group.id
+		b) version
+		c) host.name
+		d) project.folder
+	ii. settings.gradle
+		a) project.name
+	iii. Docker-compose (for local testing)
+		a) project.name
+		b) Version
+		c) Add this under volume (if needed) "- ./src/main/gateway/config/env.properties:/opt/SecureSpan/Gateway/node/default/etc/bootstrap/env/env.properties"
+	iv. Jenkinsfile (for K8s testing)
+		a) git.repository
+		b) image.name
+	v. Dockerfile (for K8s testing)
+		a) project.name
+		b) version
+    c) Add this below copy gw7 (if needed) "COPY src/main/gateway/config/env.properties /opt/SecureSpan/Gateway/node/default/etc/bootstrap/env/env.properties"
+
 # Giving Back
 ## How You Can Contribute
 Contributions are welcome and much appreciated. To learn more, see the [Contribution Guidelines][contributing].
