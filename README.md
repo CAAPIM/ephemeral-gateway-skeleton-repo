@@ -70,6 +70,10 @@ Modify below mentioned files for simple export from your existing gateway cluste
 		b) version
     c) Add this below copy gw7 (if needed) "COPY src/main/gateway/config/env.properties /opt/SecureSpan/Gateway/node/default/etc/bootstrap/env/env.properties"
 
+
+## Versioning
+If you have setup github with a webhook to jenkins, then each commit/merge to master will create artifacts using Jenkins build job. If you do not want to create artifact on each merge, you can remove github webhook, keep git url in Jenkins job, so that you can run this job manually.
+
 # Giving Back
 ## How You Can Contribute
 Contributions are welcome and much appreciated. To learn more, see the [Contribution Guidelines][contributing].
