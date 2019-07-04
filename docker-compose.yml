@@ -13,7 +13,7 @@ services:
     - "8000:8000"
     volumes:
     - /opt/SecureSpan/Gateway/node/default/etc/bootstrap/services/restman
-    - ./deployment/build/gateway/deployment-<version>.gw7:/opt/docker/rc.d/deployment.gw7
+    - ./deployment/build/gateway/deployment-1.0.0.gw7:/opt/docker/rc.d/deployment.gw7
     secrets:
     - source: license
       target: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/license/license.xml
