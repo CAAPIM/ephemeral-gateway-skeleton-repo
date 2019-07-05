@@ -6,52 +6,57 @@
 
 buildscript {
     repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-        mavenLocal()
+        gradlePluginPortal()
+        mavenCentral()
+        jcenter()
     }
     dependencies {
-//        Use + for latest version. e.g. 0.6.+
-        classpath "com.ca.apim.gateway:gateway-developer-plugin:0.6.60"
-        classpath "com.ca.apim.gateway:gateway-export-plugin:0.6.60"
+        classpath "com.ca.apim.gateway:gateway-developer-plugin:0.8.+"
+        classpath "com.ca.apim.gateway:gateway-export-plugin:0.8.+"
+        classpath "com.bmuschko:gradle-docker-plugin:4.6.2"
     }
-}
-
-plugins {
-    id "com.bmuschko.docker-remote-api" version "4.0.4"
 }
 
 apply plugin: 'com.ca.apim.gateway.gateway-export-plugin'
 apply plugin: 'com.ca.apim.gateway.gateway-developer-plugin'
 
 group '<my.group.id>'
-version = '<version>'
+version = '1.0.0'
 
 GatewayConnection {
-    url = 'https://<host.name>:8443/restman'
-    userName = 'admin'
-    userPass = 'password'
+    url = 'https://localhost:8443/restman'
 }
 
 GatewayExportConfig {
-    folderPath = '/<project.folder>'
+    folderPath = '/<project-folder>'
 }
 
 repositories {
+    flatDir {
+        dirs new File(project.rootDir, "lib")
+    }
+    gradlePluginPortal()
+    mavenCentral()
     jcenter()
-    mavenLocal()
 }
 
 wrapper {
     gradleVersion = '4.10.2'
 }
 
+dependencies {
+    bundle group: 'influxdb', name: 'influxdb', version: '1.0.0', ext: 'bundle'
+}
+
+//
 // Import task types
 import com.bmuschko.gradle.docker.tasks.image.*
 
 // Use task types
 task buildDockerImage(type: DockerBuildImage) {
-    inputDir = file('./')
-    tag = System.getProperty("imageName") + ":" + System.getProperty("imageTag")
+    apply plugin: 'com.bmuschko.docker-remote-api'
+    inputDir.set(file('./'))
+    tags.add(System.getProperty("imageName")+ ":" + System.getProperty("imageTag"))
+    labels = ['org.opencontainers.image.created': new Date().format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone("UTC"))]
+    pull.set(true)
 }
