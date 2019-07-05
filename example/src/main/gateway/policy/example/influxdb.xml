@@ -1,0 +1,165 @@
+<wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy" xmlns:L7p="http://www.layer7tech.com/ws/policy">
+    <wsp:All wsp:Usage="Required">
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="********************************************************************************************************************"/>
+        </L7p:CommentAssertion>
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="* Off Box Service Metrics"/>
+        </L7p:CommentAssertion>
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="* Route the metrics message to InfluxDB."/>
+        </L7p:CommentAssertion>
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="* "/>
+        </L7p:CommentAssertion>
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="* Input: A JSON format message containing service metrics for single request (as ${metrics})"/>
+        </L7p:CommentAssertion>
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="* "/>
+        </L7p:CommentAssertion>
+        <L7p:CommentAssertion>
+            <L7p:Comment stringValue="********************************************************************************************************************"/>
+        </L7p:CommentAssertion>
+        <L7p:AuditAssertion>
+            <L7p:Enabled booleanValue="false"/>
+        </L7p:AuditAssertion>
+        <L7p:AuditDetailAssertion>
+            <L7p:Detail stringValue="metrics: ${metrics.mainpart}"/>
+            <L7p:Enabled booleanValue="false"/>
+            <L7p:Level stringValue="WARNING"/>
+        </L7p:AuditDetailAssertion>
+        <wsp:All wsp:Usage="Required">
+            <L7p:EvaluateJsonPathExpression>
+                <L7p:Expression stringValue="time"/>
+                <L7p:OtherTargetMessageVariable stringValue="metrics"/>
+                <L7p:Target target="OTHER"/>
+                <L7p:VariablePrefix stringValue="time"/>
+            </L7p:EvaluateJsonPathExpression>
+            <L7p:EvaluateJsonPathExpression>
+                <L7p:Expression stringValue="nodeId"/>
+                <L7p:OtherTargetMessageVariable stringValue="metrics"/>
+                <L7p:Target target="OTHER"/>
+                <L7p:VariablePrefix stringValue="nodeId"/>
+            </L7p:EvaluateJsonPathExpression>
+            <L7p:EvaluateJsonPathExpression>
+                <L7p:Expression stringValue="nodeName"/>
+                <L7p:OtherTargetMessageVariable stringValue="metrics"/>
+                <L7p:Target target="OTHER"/>
+                <L7p:VariablePrefix stringValue="nodeName"/>
+            </L7p:EvaluateJsonPathExpression>
+            <L7p:EvaluateJsonPathExpression>
+                <L7p:Expression stringValue="nodeIp"/>
+                <L7p:OtherTargetMessageVariable stringValue="metrics"/>
+                <L7p:Target target="OTHER"/>
+                <L7p:VariablePrefix stringValue="nodeIp"/>
+            </L7p:EvaluateJsonPathExpression>
+            <L7p:EvaluateJsonPathExpression>
+                <L7p:Expression stringValue="serviceId"/>
+                <L7p:OtherTargetMessageVariable stringValue="metrics"/>
+                <L7p:Target target="OTHER"/>
+                <L7p:VariablePrefix stringValue="serviceId"/>
+            </L7p:EvaluateJsonPathExpression>
+            <L7p:EvaluateJsonPathExpression>
+                <L7p:Expression stringValue="serviceName"/>
+                <L7p:OtherTargetMessageVariable stringValue="metrics"/>
+                <L7p:Target target="OTHER"/>
+                <L7p:VariablePrefix stringValue="serviceName"/>
+            </L7p:EvaluateJsonPathExpression>
+            <L7p:EvaluateJsonPathExpression>
+                <L7p:Expression stringValue="serviceUri"/>
+                <L7p:OtherTargetMessageVariable stringValue="metrics"/>
+                <L7p:Target target="OTHER"/>
+                <L7p:VariablePrefix stringValue="serviceUri"/>
+            </L7p:EvaluateJsonPathExpression>
+            <L7p:EvaluateJsonPathExpression>
+                <L7p:Expression stringValue="totalFrontendLatency"/>
+                <L7p:OtherTargetMessageVariable stringValue="metrics"/>
+                <L7p:Target target="OTHER"/>
+                <L7p:VariablePrefix stringValue="totalFrontendLatency"/>
+            </L7p:EvaluateJsonPathExpression>
+            <L7p:EvaluateJsonPathExpression>
+                <L7p:Expression stringValue="totalBackendLatency"/>
+                <L7p:OtherTargetMessageVariable stringValue="metrics"/>
+                <L7p:Target target="OTHER"/>
+                <L7p:VariablePrefix stringValue="totalBackendLatency"/>
+            </L7p:EvaluateJsonPathExpression>
+            <L7p:EvaluateJsonPathExpression>
+                <L7p:Expression stringValue="isPolicySuccessful"/>
+                <L7p:OtherTargetMessageVariable stringValue="metrics"/>
+                <L7p:Target target="OTHER"/>
+                <L7p:VariablePrefix stringValue="isPolicySuccessful"/>
+            </L7p:EvaluateJsonPathExpression>
+            <L7p:EvaluateJsonPathExpression>
+                <L7p:Expression stringValue="isPolicyViolation"/>
+                <L7p:OtherTargetMessageVariable stringValue="metrics"/>
+                <L7p:Target target="OTHER"/>
+                <L7p:VariablePrefix stringValue="isPolicyViolation"/>
+            </L7p:EvaluateJsonPathExpression>
+            <L7p:EvaluateJsonPathExpression>
+                <L7p:Expression stringValue="isRoutingFailure"/>
+                <L7p:OtherTargetMessageVariable stringValue="metrics"/>
+                <L7p:Target target="OTHER"/>
+                <L7p:VariablePrefix stringValue="isRoutingFailure"/>
+            </L7p:EvaluateJsonPathExpression>
+        </wsp:All>
+        <L7p:SetVariable>
+            <L7p:VariableToSet stringValue="ENV.tags"/>
+        </L7p:SetVariable>
+        <L7p:SetVariable>
+            <L7p:VariableToSet stringValue="ENV.influxdb"/>
+        </L7p:SetVariable>
+        <L7p:SetVariable>
+            <L7p:Expression><![CDATA[id=${requestId},nodeId=${nodeId.result},nodeName=${nodeName.result},nodeIp=${nodeIp.result},serviceId=${serviceId.result},serviceName=${serviceName.result},serviceUri=${serviceUri.result},isPolicySuccessful=${isPolicySuccessful.result},isPolicyViolation=${isPolicyViolation.result},isRoutingFailure=${isRoutingFailure.result}]]></L7p:Expression>
+            <L7p:VariableToSet stringValue="tags"/>
+        </L7p:SetVariable>
+        <L7p:SetVariable>
+            <L7p:Expression><![CDATA[totalFrontendLatency=${totalFrontendLatency.result},totalBackendLatency=${totalBackendLatency.result}]]></L7p:Expression>
+            <L7p:LineBreak lineBreak="LF"/>
+            <L7p:VariableToSet stringValue="mesaurement"/>
+        </L7p:SetVariable>
+        <L7p:SetVariable>
+            <L7p:Expression><![CDATA[request,${tags},${ENV.tags} ${mesaurement} ${time.result}000000]]></L7p:Expression>
+            <L7p:ContentType stringValue="text/plain; charset=utf-8"/>
+            <L7p:DataType variableDataType="message"/>
+            <L7p:LineBreak lineBreak="LF"/>
+            <L7p:VariableToSet stringValue="requestDataPointMsg"/>
+        </L7p:SetVariable>
+        <L7p:AuditDetailAssertion>
+            <L7p:Detail stringValue="requestDataPointMsg: ${requestDataPointMsg.mainpart}"/>
+            <L7p:Enabled booleanValue="false"/>
+            <L7p:Level stringValue="WARNING"/>
+        </L7p:AuditDetailAssertion>
+        <L7p:HttpRoutingAssertion>
+            <L7p:HttpMethod httpMethod="POST"/>
+            <L7p:ProtectedServiceUrl stringValue="http://${ENV.influxdb}:8086/write?db=serviceMetricsDb"/>
+            <L7p:ProxyPassword stringValueNull="null"/>
+            <L7p:ProxyUsername stringValueNull="null"/>
+            <L7p:RequestHeaderRules httpPassthroughRuleSet="included">
+                <L7p:ForwardAll booleanValue="true"/>
+                <L7p:Rules httpPassthroughRules="included">
+                    <L7p:item httpPassthroughRule="included">
+                        <L7p:Name stringValue="Cookie"/>
+                    </L7p:item>
+                    <L7p:item httpPassthroughRule="included">
+                        <L7p:Name stringValue="SOAPAction"/>
+                    </L7p:item>
+                </L7p:Rules>
+            </L7p:RequestHeaderRules>
+            <L7p:RequestMsgSrc stringValue="requestDataPointMsg"/>
+            <L7p:RequestParamRules httpPassthroughRuleSet="included">
+                <L7p:ForwardAll booleanValue="true"/>
+                <L7p:Rules httpPassthroughRules="included"/>
+            </L7p:RequestParamRules>
+            <L7p:ResponseHeaderRules httpPassthroughRuleSet="included">
+                <L7p:ForwardAll booleanValue="true"/>
+                <L7p:Rules httpPassthroughRules="included">
+                    <L7p:item httpPassthroughRule="included">
+                        <L7p:Name stringValue="Set-Cookie"/>
+                    </L7p:item>
+                </L7p:Rules>
+            </L7p:ResponseHeaderRules>
+            <L7p:SamlAssertionVersion intValue="2"/>
+        </L7p:HttpRoutingAssertion>
+    </wsp:All>
+</wsp:Policy>
