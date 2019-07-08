@@ -41,13 +41,11 @@ repositories {
 }
 
 wrapper {
-    gradleVersion = '4.10.2'
+    gradleVersion = '4.10'
 }
-
 dependencies {
     bundle group: 'influxdb', name: 'influxdb', version: '1.0.0', ext: 'bundle'
 }
-
 //
 // Import task types
 import com.bmuschko.gradle.docker.tasks.image.*
