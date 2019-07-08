@@ -2,18 +2,12 @@ pipeline {
     agent any
 
     environment {
-        GIT_REPOSITORY = 'https://github.com/YourGitUsername/ephemeral-gateway-skeleton-repo.git'
         NEW_IMAGE_NAME = 'gateway'
         NEW_IMAGE_TAG = "${BUILD_NUMBER}"
         NEW_IMAGE_REGISTRY_REPOSITORY    = 'docker-hosted'
     }
 
     stages {
-        stage('Pull from Git') {
-            steps {
-                git "${env.GIT_REPOSITORY}"
-            }
-        }
         stage('Gradle Preparation & Build') {
             steps {
                 sh '''./gradlew clean
