@@ -8,8 +8,8 @@ In order to use this as a starting point for you projects follow these steps:
 1) Select the `Clone of download` dropdown in the top left then click `Download ZIP`.
 2) Create a local folder for your project and extract the contents of the downloaded zip into it.
 3) Fill in details in the following files:
-   * `build.gradle`: On line [23](build.gradle#L23) replace `<project-folder>` with the path of the folder that your solution is located on the Gateway. It must start with a `/`
-   * : On line [16](docker-compose.yml#L16) replace `<project.name>` with the name of your project. If not explicitly set it is usually the same as the name of the folder that your project is in (the one you created in step #2)
+   * `build.gradle`: build.gradle replace `<project-folder>` with the path of the folder that your solution is located on the Gateway. It must start with a `/`
+   * : docker-compose.yml replace `<project.name>` with the name of your project. If not explicitly set it is usually the same as the name of the folder that your project is in (the one you created in step #2)
 
 See more detail on using the gateway-developer-plugin here: [gateway-developer-plugin](https://github.com/ca-api-gateway/gateway-developer-plugin/wiki)
 
