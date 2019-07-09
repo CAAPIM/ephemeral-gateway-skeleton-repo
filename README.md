@@ -5,9 +5,8 @@ Use this repository to start creating your own CI/CD pipeline with gateway confi
 This is a skeleton repository that you can use as a starting point for your gateway projects.
 
 In order to use this as a starting point for you projects follow these steps:
-1) Select the `Clone of download` dropdown in the top left then click `Download ZIP`.
-2) Create a local folder for your project and extract the contents of the downloaded zip into it.
-3) Fill in details in the following files:
+1) Fork the repo and clone the forked repo on your local.
+2) Fill in details in the following files:
    * `build.gradle`: build.gradle replace `<project-folder>` with the path of the folder that your solution is located on the Gateway. It must start with a `/`
    * : docker-compose.yml replace `<project.name>` with the name of your project. If not explicitly set it is usually the same as the name of the folder that your project is in (the one you created in step #2)
 
