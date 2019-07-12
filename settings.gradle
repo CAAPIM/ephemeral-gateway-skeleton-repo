@@ -5,3 +5,5 @@
  */
 
 rootProject.name = '<project.name>'
+
+include 'deployment', 'example'
