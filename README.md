@@ -1,6 +1,6 @@
 
 # About
-Clone this skeleton repository to experiment with more advanced use cases such as integrating the developer plugin with the run time environment. This repository is a superset of the single-module repository, containing required files and configurations for connectivity to Jenkins. The general usage guideline of the Gateway Developer plugin from the single-module Gateway solution repository therefore stlil applies. 
+Clone this skeleton repository to experiment with more advanced use cases such as integrating the developer plugin with the run time environment. This repository is a superset of the single-module repository, containing required files and configurations for connectivity to Jenkins. The general usage guideline of the Gateway Developer plugin from the single-module Gateway solution repository therefore still applies. 
 
 In order to use this reference implementation as a starting point for your CI/CD pipeline and Ephemeral Gateway, follow the instructions to configure this repository found [here](https://github.com/CAAPIM/APIM-Gateway-Developer-Tools/wiki/ephemeral-gateway-setup-guide).
 
